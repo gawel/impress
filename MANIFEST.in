@@ -1,0 +1,2 @@
+recursive-include impress *.js *.css *.conf *.png *.md *.html
+recursive-include docs *.rst *.py
