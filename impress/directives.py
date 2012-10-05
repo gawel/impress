@@ -53,6 +53,7 @@ class Step(rst.Directive):
                    'data-x': directives.unchanged,
                    'data-y': directives.unchanged,
                    'data-scale': directives.unchanged,
+                   'data-rotate': directives.unchanged,
                    'hide-title': directives.unchanged,
                    }
 
