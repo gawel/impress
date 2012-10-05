@@ -22,7 +22,6 @@ def move_private_folders(app, e):
 
     for item in os.listdir(app.builder.outdir):
         if item.startswith('_') and os.path.isdir(join(item)):
-            print join(item)
             if os.path.isdir(join(item[1:])):
                 shutil.rmtree(join(item[1:]))
             if item == '_static':
