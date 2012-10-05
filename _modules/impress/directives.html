@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>impress.directives</title>
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="../../_static/impress/impress/css/impress-demo.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/impress.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  </head>
+  <body>
+    <div id="impress">
+        
+  <h1>Source code for impress.directives</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">docutils.parsers</span> <span class="kn">import</span> <span class="n">rst</span>
+<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span>
+<span class="kn">from</span> <span class="nn">docutils.writers.html4css1</span> <span class="kn">import</span> <span class="n">HTMLTranslator</span>
+
+<span class="n">_old_starttag</span> <span class="o">=</span> <span class="n">HTMLTranslator</span><span class="o">.</span><span class="n">starttag</span>
+
+
+<span class="k">def</span> <span class="nf">starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tagname</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">):</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">non_default_attributes</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="n">attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span>
+                                        <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;data-&#39;</span><span class="p">)]))</span>
+    <span class="k">return</span> <span class="n">_old_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tagname</span><span class="p">,</span>
+                         <span class="n">suffix</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+
+<span class="n">HTMLTranslator</span><span class="o">.</span><span class="n">starttag</span> <span class="o">=</span> <span class="n">starttag</span>
+
+
+<span class="k">class</span> <span class="nc">Step</span><span class="p">(</span><span class="n">rst</span><span class="o">.</span><span class="n">Directive</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This directive allow to create some steps in rest documents&quot;&quot;&quot;</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">required_arguments</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">has_content</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">class_option</span><span class="p">,</span>
+                   <span class="s">&#39;data-x&#39;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+                   <span class="s">&#39;data-y&#39;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+                   <span class="s">&#39;data-scale&#39;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+                   <span class="s">&#39;hide-title&#39;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+                   <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">starttag</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;&lt;section&#39;</span><span class="p">):</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">attributes</span>
+            <span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">&#39;class&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="s">&#39;classes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;class&#39;</span><span class="p">))</span>
+            <span class="n">attrs</span><span class="p">[</span><span class="s">&#39;classes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;step&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">&#39;hide-title&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">next_node</span><span class="p">()</span>
+                <span class="n">title</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&#39;classes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;hidden&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">amount</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="s">&#39;data-x&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="s">&#39;data-x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">amount</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="s">&#39;data-y&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="s">&#39;data-y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="Slide"><a class="viewcode-back" href="../../index.html#impress.directives.Slide">[docs]</a><span class="k">class</span> <span class="nc">Slide</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This directive allow to create some slides in rest documents&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s">&#39;class&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;slide&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;slide&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Slide</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+</div>
+<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s">&#39;step&#39;</span><span class="p">,</span> <span class="n">Step</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="n">Slide</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+    <script src="../../_static/impress/impress/js/impress.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script>
+      if (! /_modules/.exec(window.location.href)) {
+        impress().init();
+      }
+    </script>
+  </body>
+</html>
