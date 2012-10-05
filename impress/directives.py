@@ -2,6 +2,33 @@
 from docutils.parsers import rst
 from docutils.parsers.rst import directives
 from docutils.writers.html4css1 import HTMLTranslator
+import os
+import shutil
+
+
+def change_pathto(app, pagename, templatename, context, doctree):
+    pathto = context.get('pathto')
+
+    def gh_pathto(otheruri, *args, **kw):
+        if otheruri.startswith('_'):
+            otheruri = otheruri[1:]
+        return pathto(otheruri, *args, **kw)
+    context['pathto'] = gh_pathto
+
+
+def move_private_folders(app, e):
+    def join(dir, *args):
+        return os.path.join(app.builder.outdir, dir, *args)
+
+    for item in os.listdir(app.builder.outdir):
+        if item.startswith('_') and os.path.isdir(join(item)):
+            print join(item)
+            if os.path.isdir(join(item[1:])):
+                shutil.rmtree(join(item[1:]))
+            if item == '_static':
+                shutil.rmtree(join(item, 'impress', 'impress', '.git'))
+            shutil.move(join(item), join(item[1:]))
+
 
 _old_starttag = HTMLTranslator.starttag
 
@@ -63,3 +90,5 @@ class Slide(Step):
 def setup(app):
     app.add_directive('step', Step)
     app.add_directive('slide', Slide)
+    app.connect('html-page-context', change_pathto)
+    app.connect('build-finished', move_private_folders)
