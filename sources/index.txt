@@ -79,10 +79,27 @@ The default template is very simple and can be override to fit your needs.
 Just copy it in a ``templates`` folder. You can add some css/javascript files in
 your ``static`` folder.
 
+Hidden title
+=============
+
+.. step::
+   :hide-title: true
+   :data-scale: 5
+   :data-rotate: 90
+   :data-y: -2500
+   :data-x: 2500
+
+You may also want to hide title (required to create a step). And have fun with
+other ``impress.js`` attributes.
+
 Contributing
 ============
 
 .. slide::
+   :data-scale: 3
+   :data-rotate: 45
+   :data-y: -2500
+   :data-x: 2500
 
 This is a social project hosted on `github
 <https://github.com/gawel/impress/>`_. Feel free to fork!
