@@ -82,5 +82,7 @@ your ``static`` folder.
 Contributing
 ============
 
+.. slide::
+
 This is a social project hosted on `github
 <https://github.com/gawel/impress/>`_. Feel free to fork!
