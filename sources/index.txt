@@ -78,3 +78,9 @@ The default template is very simple and can be override to fit your needs.
 
 Just copy it in a ``templates`` folder. You can add some css/javascript files in
 your ``static`` folder.
+
+Contributing
+============
+
+This is a social project hosted on `github
+<https://github.com/gawel/impress/>`_. Feel free to fork!
