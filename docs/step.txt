@@ -1,0 +1,10 @@
+.. step::
+   :class: myclass
+   :func: mymodule:myfunc
+   :data-scale: 0
+   :data-x: 0
+   :data-y: 0
+   :data-z: 0
+   :data-rotate-x: 0
+   :data-rotate-y: 0
+   :data-rotate-z: 0

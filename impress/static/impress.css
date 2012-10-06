@@ -1,9 +1,70 @@
-body {text-align: left;}
-dl, ul, ol, pre {margin: 0.5em; line-height:1em; font-size: 0.75em;}
-h1 {margin-bottom: 0.3em;}
+body {text-align: left; background: #ccc;}
+h1, h2 {margin-top:0px; margin:bottom:0.3em; padding:0px;}
+dl, ul, ol {margin: 0.5em; line-height:1em;}
+p, li {margin-top: 0.1em; margin-bottom: 0.3em;}
+pre {margin:0.5em 0.1em; padding:0.5em; font-size:100%;line-height:1em;}
+div.highlight {padding:0.1em;}
 .first h1 {margin-top: 1em; margin-bottom:1em;}
 .center p {text-align:center;}
 .headerlink {display: none;}
 .impress-enabled .step {font-size:200%;}
 .impress-enabled .step h1 {font-size:210%; text-align:center; line-height:100%;}
 .hidden {display:none;}
+
+.step {
+    position: relative;
+    width: 900px;
+    padding: 30px;
+    margin: 10px auto;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    -ms-box-sizing:     border-box;
+    -o-box-sizing:      border-box;
+    box-sizing:         border-box;
+}
+
+/*
+    ... and we enhance the styles for impress.js.
+
+    Basically we remove the margin and make inactive steps a little bit transparent.
+*/
+.impress-enabled .step {
+    margin: 0;
+    opacity: 0.3;
+
+    -webkit-transition: opacity 1s;
+    -moz-transition:    opacity 1s;
+    -ms-transition:     opacity 1s;
+    -o-transition:      opacity 1s;
+    transition:         opacity 1s;
+}
+
+.impress-enabled .step.active { opacity: 1 }
+
+/*
+    These 'slide' step styles were heavily inspired by HTML5 Slides:
+    http://html5slides.googlecode.com/svn/trunk/styles.css
+
+    ;)
+
+    They cover everything what you see on first three steps of the demo.
+*/
+.slide {
+    display: block;
+
+    width: 900px;
+    height: 700px;
+    padding: 30px 40px;
+
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+
+    letter-spacing: -1px;
+}
+

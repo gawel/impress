@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
+import glob
+import shutil
+from impress import monkeys # NOQA
+from impress import funcs
 from docutils.parsers import rst
 from docutils.parsers.rst import directives
-from docutils.writers.html4css1 import HTMLTranslator
-import os
-import shutil
 
 
 def change_pathto(app, pagename, templatename, context, doctree):
@@ -22,57 +24,113 @@ def move_private_folders(app, e):
 
     for item in os.listdir(app.builder.outdir):
         if item.startswith('_') and os.path.isdir(join(item)):
+            if item == '_modules':
+                continue
             if os.path.isdir(join(item[1:])):
                 shutil.rmtree(join(item[1:]))
             if item == '_static':
-                shutil.rmtree(join(item, 'impress', 'impress', '.git'))
+                for dirname in glob.glob(join(item, '*', '.git')):
+                    shutil.rmtree(dirname)
             shutil.move(join(item), join(item[1:]))
 
 
-_old_starttag = HTMLTranslator.starttag
+def hide_title(argument):
+    return directives.choice(argument, ('true', 'false'))
 
 
-def starttag(self, node, tagname, suffix='\n', empty=False, **attributes):
-    attrs = node.non_default_attributes().items()
-    attributes.update(dict([(k, v) for k, v in attrs
-                                        if k.startswith('data-')]))
-    return _old_starttag(self, node, tagname,
-                         suffix='\n', empty=False, **attributes)
+class Impress(rst.Directive):
+    """This directive allow to set impress globales options"""
+    required_arguments = 0
+    optional_arguments = 4
+    final_argument_whitespace = True
+    has_content = False
+    option_spec = {
+                   'func': directives.unchanged,
+                   'class': directives.class_option,
+                   'hide-title': hide_title,
+                   'data-scale': directives.nonnegative_int,
+                  }
 
-HTMLTranslator.starttag = starttag
+    opts = {}
+
+    def run(self):
+        if 'reset' in os.environ:
+            Impress.opts = {}
+        source = self.state.document.attributes['source']
+        Impress.opts.setdefault(source, {}).update(self.options)
+        return []
 
 
 class Step(rst.Directive):
     """This directive allow to create some steps in rest documents"""
     amount = 0
+    last_coord = {}
+
     required_arguments = 0
     optional_arguments = 5
     final_argument_whitespace = True
     has_content = False
-    option_spec = {'class': directives.class_option,
+    option_spec = {
+                   'func': directives.unchanged,
+                   'class': directives.class_option,
+                   'hide-title': hide_title,
+                   'data-scale': directives.nonnegative_int,
                    'data-x': directives.unchanged,
                    'data-y': directives.unchanged,
-                   'data-scale': directives.unchanged,
+                   'data-z': directives.unchanged,
                    'data-rotate': directives.unchanged,
-                   'hide-title': directives.unchanged,
+                   'data-rotate-x': directives.unchanged,
+                   'data-rotate-y': directives.unchanged,
+                   'data-rotate-z': directives.unchanged,
                    }
 
+    def resolve_func(self, name):
+        if hasattr(funcs, name):
+            return getattr(funcs, name)
+        else:
+            mod, func = name.split('.')
+            mod = __import__(mod, globals(), locals(), [''])
+            return getattr(mod, func)
+
     def run(self):
+        if 'reset' in os.environ:
+            del os.environ['reset']
+            Step.amounts = {}
+            Step.last_coord = {}
+
         parent = self.state.parent
+        source = parent.document.attributes['source']
+        global_options = Impress.opts.setdefault(source, {})
+        for k, v in global_options.items():
+            if k not in self.options:
+                self.options[k] = v
+
         if parent.starttag().startswith('<section'):
             attrs = self.state.parent.attributes
             attrs.update(self.options)
             if 'class' in self.options:
                 attrs['classes'].extend(self.options.pop('class'))
             attrs['classes'].insert(0, 'step')
-            if 'hide-title' in self.options:
+            if self.options.get('hide-title', 'false') == 'true':
                 title = parent.next_node()
                 title.attributes['classes'].insert(0, 'hidden')
-            self.__class__.amount += 1
             if 'data-x' not in self.options:
-                attrs['data-x'] = ['%s' % (1000 * self.__class__.amount)]
-            if 'data-y' not in self.options:
-                attrs['data-y'] = ['0']
+                func = self.resolve_func(self.options.get('func', 'default'))
+                amount = Step.amounts.setdefault(source, 0)
+                last_coord = Step.last_coord.setdefault(source, {})
+                new_attrs = func(self, amount, last_coord)
+                for k, v in new_attrs.items():
+                    last_coord[k] = v
+                    if k in ('x', 'y', 'z',
+                             'rotate_x', 'rotate_y', 'rotate_z',
+                             'scale'):
+                        k = 'data-%s' % k.replace('_', '-')
+                        if k not in self.options:
+                            attrs[k] = [str(v)]
+                Step.amounts[source] += 1
+        else:
+            print('%s:: WARNING: %s found out of section are ignored' % (
+                             source, self.__class__.__name__.lower()))
         return []
 
 
@@ -88,6 +146,7 @@ class Slide(Step):
 
 
 def setup(app):
+    app.add_directive('impress', Impress)
     app.add_directive('step', Step)
     app.add_directive('slide', Slide)
     app.connect('html-page-context', change_pathto)

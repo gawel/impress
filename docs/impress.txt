@@ -1,0 +1,4 @@
+.. impress::
+   :func: default
+   :hide-title: false
+   :data-scale: 2

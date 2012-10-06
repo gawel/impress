@@ -5,13 +5,10 @@
     <title>{{ title|striptags|e }}</title>
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="{{ pathto('_static/impress/impress/css/impress-demo.css', 1) }}" type="text/css" />
     <link rel="stylesheet" href="{{ pathto('_static/nature.css', 1) }}" type="text/css" />
-    <link rel="stylesheet" href="{{ pathto('_static/impress.css', 1) }}" type="text/css" />
     <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" />
-    {%- for cssfile in css_files %}
-    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
-    {%- endfor %}
+    <link rel="stylesheet" href="{{ pathto('_static/impress.css', 1) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ pathto('_static/custom.css', 1) }}" type="text/css" />
   </head>
   <body>
     <div id="impress">
@@ -21,11 +18,10 @@
       {%- endblock %}
     {%- endblock %}
     </div>
-    <script src="{{ pathto('_static/impress/impress/js/impress.js', 1) }}"></script>
+    <script src="{{ pathto('_static/impress/js/impress.js', 1) }}"></script>
     <script src="{{ pathto('_static/jquery.js', 1) }}"></script>
-    {%- for jsfile in javascript_files %}
-    <script src="{{ pathto(jsfile, 1) }}"></script>
-    {%- endfor %}
+    <script src="{{ pathto('_static/impress.js', 1) }}"></script>
+    <script src="{{ pathto('_static/custom.js', 1) }}"></script>
     <script>
       if (! /_modules/.exec(window.location.href)) {
         impress().init();
