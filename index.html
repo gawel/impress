@@ -6,15 +6,15 @@
     <title>impress’s documentation!</title>
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="static/impress/impress/css/impress-demo.css" type="text/css" />
     <link rel="stylesheet" href="static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="static/impress.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/impress.css" type="text/css" />
+    <link rel="stylesheet" href="static/custom.css" type="text/css" />
   </head>
   <body>
     <div id="impress">
         
-  <div class="step first center slide section" data-x="1000" data-y="0" id="impress-s-documentation">
+  <div class="step first center slide section" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="0" data-y="0" id="impress-s-documentation">
 <h1>
 impress&#8217;s documentation!<a class="headerlink" href="#impress-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>
@@ -25,8 +25,11 @@ Sphinx</a> and <a class="reference external" href="http://bartaz.github.com/impr
 impress.js</a>.</p>
 <p>
 Use space/left/right keys to navigate.</p>
+<p>
+<a class="reference external" href="http://github.com/impress/">
+http://github.com/impress/</a></p>
 </div>
-<div class="step slide section" data-x="2000" data-y="0" id="installation">
+<div class="step slide section" data-rotate-x="17.4532925199" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1000" data-y="500" id="installation">
 <h1>
 Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>
@@ -40,28 +43,28 @@ Install the latest:</p>
 <pre>$ pip install http://github.com/gawel/impress/tarball/master</pre>
 </div>
 </div>
-<div class="step slide section" data-x="3000" data-y="0" id="quick-start">
+<div class="step slide section" data-rotate-x="34.9065850399" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="2000" data-y="1000" id="quick-start">
 <h1>
 Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
 <p>
-Write a .rst file like this:</p>
-<div class="highlight-python">
-<pre>My fisrt slide
-==============
+Write a <tt class="docutils literal">
+<span class="pre">index.rst</span></tt> file like this:</p>
+<div class="highlight-rst">
+<div class="highlight"><pre><span class="gh">My fisrt slide</span>
+<span class="gh">==============</span>
 
-.. slide::
+<span class="p">..</span> <span class="ow">slide</span><span class="p">::</span>
 
-My second slide
-===============
+<span class="gh">My second slide</span>
+<span class="gh">===============</span>
 
-.. slide::
-
-</pre>
+<span class="p">..</span> <span class="ow">slide</span><span class="p">::</span>
+</pre></div>
 </div>
 <p>
 Then run:</p>
 <div class="highlight-python">
-<pre>$ impress -i index.rst</pre>
+<pre>$ impress</pre>
 </div>
 <p>
 Open <tt class="docutils literal">
@@ -70,7 +73,7 @@ Open <tt class="docutils literal">
 Read the <a class="reference external" href="_sources/index.txt">
 source</a> of this page to see more examples.</p>
 </div>
-<div class="step slide section" data-x="4000" data-y="0" id="inserting-python-code">
+<div class="step slide section" data-rotate-x="52.3598775598" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="3000" data-y="1500" id="inserting-python-code">
 <h1>
 Inserting python code<a class="headerlink" href="#inserting-python-code" title="Permalink to this headline">¶</a></h1>
 <p>
@@ -97,7 +100,7 @@ Or by inserting some code:</p>
 </pre></div>
 </div>
 </div>
-<div class="step slide section" data-x="5000" data-y="0" id="you-can-insert-images">
+<div class="step slide section" data-rotate-x="75.6309342531" data-rotate-y="46.5421133865" data-rotate-z="0" data-scale="1" data-x="-784.372345036" data-y="-908.16299437" data-z="1663.55323334" id="you-can-insert-images">
 <h1>
 You can insert Images<a class="headerlink" href="#you-can-insert-images" title="Permalink to this headline">¶</a></h1>
 <p>
@@ -106,37 +109,162 @@ It&#8217;s recommended to add images in a <tt class="docutils literal">
 <div align="center" class="align-center"><img height="300" src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Python.svg" width="300">
 </div>
 </div>
-<div class="step slide section" data-x="6000" data-y="0" id="overriding-the-default-template">
-<h1>
-Overriding the default template<a class="headerlink" href="#overriding-the-default-template" title="Permalink to this headline">¶</a></h1>
-<p>
-The default template is very simple and can be override to fit your needs.</p>
-<p>
-Just copy it in a <tt class="docutils literal">
-<span class="pre">templates</span></tt> folder. You can add some css/javascript files in
-your <tt class="docutils literal">
-<span class="pre">static</span></tt> folder.</p>
-</div>
-<div class="step section" data-rotate="90" data-scale="5" data-x="2500" data-y="-2500" id="hidden-title">
+<div class="step black center section" data-rotate-x="93.6660031904" data-rotate-y="82.6122512611" data-rotate-z="0" data-scale="5" data-x="340.394622556" data-y="-1150.7091296" data-z="1931.32549492" id="hidden-title">
 <h1 class="hidden">
 Hidden title<a class="headerlink" href="#hidden-title" title="Permalink to this headline">¶</a></h1>
 <p>
 You may also want to hide title (required to create a step). And have fun with
-other <tt class="docutils literal">
+css3 and others <tt class="docutils literal">
 <span class="pre">impress.js</span></tt> attributes.</p>
+<p>
+But before that you may want to read a few technicals notes</p>
 </div>
-<div class="step slide section" data-rotate="45" data-scale="3" data-x="2500" data-y="-2500" id="contributing">
+<div class="step slide section" data-rotate-x="118.100612718" data-rotate-y="131.481470317" data-rotate-z="0" data-scale="1" data-x="1152.20434398" data-y="-335.298597839" data-z="2150.11136307" id="impress-directive">
 <h1>
+Impress directive<a class="headerlink" href="#impress-directive" title="Permalink to this headline">¶</a></h1>
+<p>
+This directive allow to set some &#8220;global&#8221; options used for all slide found
+after it.</p>
+<div class="highlight-rst">
+<div class="highlight"><pre><span class="p">..</span> <span class="ow">impress</span><span class="p">::</span>
+   <span class="nc">:func:</span> <span class="nf">default</span>
+   <span class="nc">:hide-title:</span> <span class="nf">false</span>
+   <span class="nc">:data-scale:</span> <span class="nf">2</span>
+</pre></div>
+</div>
+</div>
+<div class="step slide section" data-rotate-x="143.116998664" data-rotate-y="181.514242207" data-rotate-z="0" data-scale="1" data-x="904.682705212" data-y="788.383918463" data-z="2335.09217887" id="step-slide-directive">
+<h1>
+Step / Slide directive<a class="headerlink" href="#step-slide-directive" title="Permalink to this headline">¶</a></h1>
+<p>
+Per slide configuration. One of the step/slide directive <strong>
+must</strong> be added
+after a section title to create a slide.</p>
+<div class="highlight-rst">
+<div class="highlight"><pre><span class="p">..</span> <span class="ow">step</span><span class="p">::</span>
+   <span class="nc">:class:</span> <span class="nf">myclass</span>
+   <span class="nc">:func:</span> <span class="nf">mymodule:myfunc</span>
+   <span class="nc">:data-scale:</span> <span class="nf">0</span>
+   <span class="nc">:data-x:</span> <span class="nf">0</span>
+   <span class="nc">:data-y:</span> <span class="nf">0</span>
+   <span class="nc">:data-z:</span> <span class="nf">0</span>
+   <span class="nc">:data-rotate-x:</span> <span class="nf">0</span>
+   <span class="nc">:data-rotate-y:</span> <span class="nf">0</span>
+   <span class="nc">:data-rotate-z:</span> <span class="nf">0</span>
+</pre></div>
+</div>
+<p>
+The slide directive use the same arguments. It just add a css class <tt class="docutils literal">
+<span class="pre">slide</span></tt>
+automaticaly.</p>
+</div>
+<div class="step slide section" data-rotate-x="168.715161026" data-rotate-y="232.710566933" data-rotate-z="0" data-scale="1" data-x="-174.60004057" data-y="1187.22989595" data-z="2495.32985002" id="positioning">
+<h1>
+Positioning<a class="headerlink" href="#positioning" title="Permalink to this headline">¶</a></h1>
+<p>
+Positioning can be done manualy with the <tt class="docutils literal">
+<span class="pre">data-*</span></tt> attributes but you can use
+the <tt class="docutils literal">
+<span class="pre">func</span></tt> attribute to auto positioning slides on the canvas.</p>
+<p>
+Avalaible functions are stored in <tt class="xref py py-mod docutils literal">
+<span class="pre">impress.funcs</span></tt>:</p>
+<dl class="function">
+<dt id="impress.funcs.default">
+<tt class="descclassname">
+impress.funcs.</tt><tt class="descname">
+default</tt><big>(</big><em>directive</em>, <em>i</em>, <em>coord</em><big>)</big><a class="reference internal" href="_modules/impress/funcs.html#default">
+<span class="viewcode-link">
+[source]</span></a><a class="headerlink" href="#impress.funcs.default" title="Permalink to this definition">¶</a></dt>
+<dd>
+</dd></dl>
+
+<dl class="function">
+<dt id="impress.funcs.linear">
+<tt class="descclassname">
+impress.funcs.</tt><tt class="descname">
+linear</tt><big>(</big><em>directive</em>, <em>i</em>, <em>coord</em><big>)</big><a class="reference internal" href="_modules/impress/funcs.html#linear">
+<span class="viewcode-link">
+[source]</span></a><a class="headerlink" href="#impress.funcs.linear" title="Permalink to this definition">¶</a></dt>
+<dd>
+</dd></dl>
+
+<dl class="function">
+<dt id="impress.funcs.spiral">
+<tt class="descclassname">
+impress.funcs.</tt><tt class="descname">
+spiral</tt><big>(</big><em>directive</em>, <em>i</em>, <em>coord</em><big>)</big><a class="reference internal" href="_modules/impress/funcs.html#spiral">
+<span class="viewcode-link">
+[source]</span></a><a class="headerlink" href="#impress.funcs.spiral" title="Permalink to this definition">¶</a></dt>
+<dd>
+</dd></dl>
+
+</div>
+<div class="step slide section" data-rotate-x="184.423124294" data-rotate-y="264.126493468" data-rotate-z="0" data-scale="1" data-x="-1093.35631426" data-y="494.54218229" data-z="2636.6694928" id="use-your-own-algorithm">
+<h1>
+Use your own algorithm<a class="headerlink" href="#use-your-own-algorithm" title="Permalink to this headline">¶</a></h1>
+<p>
+This tools came with a set of function designed to position slides in the
+canvas but you can use your own.</p>
+<p>
+You just need to create a function like this:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">impress.funcs</span> <span class="kn">import</span> <span class="n">defaults</span>
+
+
+<span class="k">def</span> <span class="nf">awesome_positioning</span><span class="p">(</span><span class="n">directive</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="n">coord</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
+    <span class="n">coord</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1000</span>
+    <span class="k">return</span> <span class="n">coord</span>
+</pre></div>
+</div>
+<p>
+And use it in the <tt class="docutils literal">
+<span class="pre">func</span></tt> attribute of the <tt class="docutils literal">
+<span class="pre">impress</span></tt>, <tt class="docutils literal">
+<span class="pre">step</span></tt> or <tt class="docutils literal">
+<span class="pre">slide</span></tt>
+directives.</p>
+</div>
+<div class="step slide section" data-rotate-x="199.549311145" data-rotate-y="294.37886717" data-rotate-z="0" data-scale="1" data-x="-1006.88583489" data-y="-652.825333067" data-z="2763.10211159" id="overriding-the-defaults">
+<h1>
+Overriding the defaults<a class="headerlink" href="#overriding-the-defaults" title="Permalink to this headline">¶</a></h1>
+<p>
+There is two way:</p>
+<ul class="simple">
+<li>
+If you add a <tt class="docutils literal">
+<span class="pre">custom.css</span></tt> and a <tt class="docutils literal">
+<span class="pre">custom.js</span></tt> in a <tt class="docutils literal">
+<span class="pre">static</span></tt> folder then
+impress will take care of it.</li>
+<li>
+If you need more advanced customization then you need to override the default
+template which is very simple and can be override to fit your needs.  Just copy
+it in a <tt class="docutils literal">
+<span class="pre">templates</span></tt> folder.</li>
+</ul>
+</div>
+<div class="step slide section" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1000" data-y="0" data-z="2763.10211159" id="contributing">
+<h1 class="hidden">
 Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
 <p>
 This is a social project hosted on <a class="reference external" href="https://github.com/gawel/impress/">
-github</a>. Feel free to fork!</p>
+github</a>.</p>
+<p>
+If you want to contribute, feel free to fork!</p>
+</div>
+<div class="step section" data-scale="6" data-x="900" data-y="200" id="eos">
+<h1 class="hidden">
+EOS<a class="headerlink" href="#eos" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
     </div>
-    <script src="static/impress/impress/js/impress.js"></script>
+    <script src="static/impress/js/impress.js"></script>
     <script src="static/jquery.js"></script>
+    <script src="static/impress.js"></script>
+    <script src="static/custom.js"></script>
     <script>
       if (! /_modules/.exec(window.location.href)) {
         impress().init();

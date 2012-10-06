@@ -1,3 +1,5 @@
+.. impress::
+
 impress's documentation!
 ===================================
 
@@ -9,6 +11,8 @@ based on `Sphinx <http://sphinx.pocoo.org/>`_ and `impress.js
 <http://bartaz.github.com/impress.js/#/bored>`_.
 
 Use space/left/right keys to navigate.
+
+http://github.com/impress/
 
 Installation
 ============
@@ -28,13 +32,14 @@ Quick start
 
 .. slide::
 
-Write a .rst file like this:
+Write a ``index.rst`` file like this:
 
 .. literalinclude:: sample.rst
+   :language: rst
 
 Then run::
 
-    $ impress -i index.rst
+    $ impress
 
 Open ``html/index.html`` in your browser. That's all.
 
@@ -57,6 +62,9 @@ Or by inserting some code:
         alert('bar');
     }
 
+.. impress::
+   :func: spiral
+
 You can insert Images
 =====================
 
@@ -69,37 +77,106 @@ It's recommended to add images in a ``static`` folder but urls works too.
    :height: 300
    :align: center
 
-Overriding the default template
-===============================
-
-.. slide::
-
-The default template is very simple and can be override to fit your needs.
-
-Just copy it in a ``templates`` folder. You can add some css/javascript files in
-your ``static`` folder.
-
 Hidden title
 =============
 
 .. step::
    :hide-title: true
+   :class: black center
    :data-scale: 5
-   :data-rotate: 90
-   :data-y: -2500
-   :data-x: 2500
 
 You may also want to hide title (required to create a step). And have fun with
-other ``impress.js`` attributes.
+css3 and others ``impress.js`` attributes.
+
+But before that you may want to read a few technicals notes
+
+Impress directive
+==================
+
+.. slide::
+
+This directive allow to set some "global" options used for all slide found
+after it.
+
+.. literalinclude:: impress.txt
+   :language: rst
+
+Step / Slide directive
+=======================
+
+.. slide::
+
+Per slide configuration. One of the step/slide directive **must** be added
+after a section title to create a slide.
+
+.. literalinclude:: step.txt
+   :language: rst
+
+The slide directive use the same arguments. It just add a css class ``slide``
+automaticaly.
+
+Positioning
+===========
+
+.. slide::
+
+Positioning can be done manualy with the ``data-*`` attributes but you can use
+the ``func`` attribute to auto positioning slides on the canvas.
+
+Avalaible functions are stored in :mod:`impress.funcs`:
+
+.. autofunction:: impress.funcs.default
+.. autofunction:: impress.funcs.linear
+.. autofunction:: impress.funcs.spiral
+
+
+Use your own algorithm
+======================
+
+.. slide::
+
+This tools came with a set of function designed to position slides in the
+canvas but you can use your own.
+
+You just need to create a function like this:
+
+.. literalinclude:: mymodule.py
+
+And use it in the ``func`` attribute of the ``impress``, ``step`` or ``slide``
+directives.
+
+Overriding the defaults
+===============================
+
+.. slide::
+
+There is two way:
+
+* If you add a ``custom.css`` and a ``custom.js`` in a ``static`` folder then
+  impress will take care of it.
+
+* If you need more advanced customization then you need to override the default
+  template which is very simple and can be override to fit your needs.  Just copy
+  it in a ``templates`` folder.
+
+.. impress::
+   :hide-title: true
 
 Contributing
 ============
 
 .. slide::
-   :data-scale: 3
-   :data-rotate: 45
-   :data-y: -2500
-   :data-x: 2500
+   :func: mymodule.awesome_positioning
 
 This is a social project hosted on `github
-<https://github.com/gawel/impress/>`_. Feel free to fork!
+<https://github.com/gawel/impress/>`_.
+
+If you want to contribute, feel free to fork!
+
+EOS
+===
+
+.. step::
+   :data-scale: 6
+   :data-x: 900
+   :data-y: 200

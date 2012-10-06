@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>impress.funcs</title>
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="../../static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/impress.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/custom.css" type="text/css" />
+  </head>
+  <body>
+    <div id="impress">
+        
+  <h1>Source code for impress.funcs</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rotate_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rotate_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rotate_z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="default"><a class="viewcode-back" href="../../index.html#impress.funcs.default">[docs]</a><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">directive</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">coord</span><span class="p">:</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1000</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">500</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;rotate_x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">coord</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">coord</span>
+
+</div>
+<div class="viewcode-block" id="linear"><a class="viewcode-back" href="../../index.html#impress.funcs.linear">[docs]</a><span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="n">directive</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">coord</span><span class="p">:</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1000</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">coord</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">coord</span>
+
+</div>
+<div class="viewcode-block" id="spiral"><a class="viewcode-back" href="../../index.html#impress.funcs.spiral">[docs]</a><span class="k">def</span> <span class="nf">spiral</span><span class="p">(</span><span class="n">directive</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">coord</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">1200</span>
+        <span class="k">if</span> <span class="n">coord</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">incr</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="mf">3.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">incr</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="mf">3.</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;rotate_x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">((</span><span class="n">r</span> <span class="o">+</span> <span class="n">incr</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;rotate_y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">((</span><span class="n">r</span> <span class="o">+</span> <span class="n">incr</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">coord</span><span class="p">[</span><span class="s">&#39;rotate_y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">((</span><span class="n">r</span> <span class="o">+</span> <span class="n">incr</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">coord</span></div>
+</pre></div>
+
+    </div>
+    <script src="../../static/impress/js/impress.js"></script>
+    <script src="../../static/jquery.js"></script>
+    <script src="../../static/impress.js"></script>
+    <script src="../../static/custom.js"></script>
+    <script>
+      if (! /_modules/.exec(window.location.href)) {
+        impress().init();
+      }
+    </script>
+  </body>
+</html>
