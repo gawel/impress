@@ -23,6 +23,8 @@ http://github.com/impress/
    sample
    default
    linear
+   square
+   square2
    spiral
 
 Installation

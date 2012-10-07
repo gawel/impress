@@ -1,14 +1,14 @@
 .. impress::
-   :func: square
+   :func: square2
 
-=======================
-Square positioning demo
-=======================
+========================
+Square2 positioning demo
+========================
 
 .. step::
    :class: center
-   :data-x: 1300
-   :data-y: -400
+   :data-x: -1400
+   :data-y: -300
    :data-scale: 5
 
 Back to `Positionning <index.html#/positioning>`_
@@ -17,7 +17,7 @@ This
 =====
 
 .. slide::
-   :data-x: -1000
+   :data-x: 0
    :data-y: 0
 
 Is
@@ -26,8 +26,8 @@ Is
 The
 ===
 
-"square"
-========
+"square2"
+=========
 
 Positionning
 =============

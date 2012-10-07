@@ -70,27 +70,34 @@ def linear(slide, slides):
         slide.x += 1000
 
 
-def square(slide, slides):
+def square(slide, slides, amount=4):
     """:doc:`square`"""
-    if slide.index % 4 == 3:
+    if slide.index % amount == amount - 1:
         slide.x = 0
         slide.y += 800
     else:
         slide.x += 1000
 
 
-def spiral(slide, slides):
+def square2(slide, slides, amount=4):
+    """:doc:`square2`"""
+    if slide.index == 0:
+        slide.cx = 1000
+    if slide.index % amount == amount - 1:
+        slide.cx = -slide.cx
+        slide.rotate_z = slide.rotate_z == 0 and 180 or 0
+        slide.y += 800
+    else:
+        slide.x += slide.cx
+
+
+def spiral(slide, slides, r=1200):
     """:doc:`spiral`"""
-    r = 1200
     i = slide.index
     if i > 0:
-        if slide.x > 0:
-            incr = 100 * i / 3.
-        else:
-            incr = -100 * i / 3.
         slide.x = math.cos(i) * r
         slide.y = math.sin(i) * r
         slide.z = math.log(i) * r
-        slide.rotate_x += ((r + incr) / 180. * math.pi)
-        slide.rotate_y += ((r + incr) / 180. * math.pi)
-        slide.rotate_y += ((r + incr) / 180. * math.pi)
+        slide.rotate_x += (r / 180. * math.pi)
+        slide.rotate_y += (r / 180. * math.pi)
+        slide.rotate_y += (r / 180. * math.pi)
