@@ -1,7 +1,59 @@
 # -*- coding: utf-8 -*-
 import math
 
-defaults = dict(x=0, y=0, rotate_x=0, rotate_y=0, rotate_z=0, scale=1)
+
+class Slide(object):
+    """Node wrapper to easyly set positioning"""
+
+    def __init__(self, i, section):
+        self.section = section
+        self.attributes = section.attributes
+        self.index = i
+
+    @property
+    def id(self):
+        ids = self.section.attributes['dupnames']
+        if ids:
+            return ids[0]
+        return self.section.attributes['ids'][0]
+
+    def update(self, *others, **kwargs):
+        attributes = {}
+        for other in others:
+            attributes.update(other.attributes)
+        attributes.update(kwargs)
+        for k, v in attributes.items():
+            if k.startswith('data-') or k in ('func',):
+                if k not in self.attributes:
+                    if k not in ('data-scale',):
+                        self.attributes[k] = v
+
+    def __getattr__(self, attr):
+        attr = attr.replace('_', '-')
+        if not attr.startswith('data-'):
+            attr = 'data-%s' % attr
+        default = attr == 'data-scale' and 1 or 0
+        value = self.attributes.setdefault(attr, default)
+        if isinstance(value, unicode):
+            value = float(value)
+        return value
+
+    def __setattr__(self, attr, value):
+        if attr in ('index', 'section', 'attributes'):
+            object.__setattr__(self, attr, value)
+        else:
+            attr = attr.replace('_', '-')
+            if not attr.startswith('data-'):
+                attr = 'data-%s' % attr
+            self.section.attributes[attr] = value
+
+    def __repr__(self):
+        coord = ['%s: %s' % (k, v) for k, v in self.attributes.items()
+                                            if k.startswith('data-')]
+        coord = ', '.join(sorted(coord))
+        classes = '.'.join(self.attributes.get('classes'))
+        return '<slide#%s.%s (%i) %s>' % (self.id, classes,
+                                          self.index, coord)
 
 
 def default(slide, slides):
