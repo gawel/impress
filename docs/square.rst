@@ -1,14 +1,14 @@
 .. impress::
-   :func: linear
+   :func: square
 
 =======================
-Linear positioning demo
+Square positioning demo
 =======================
 
 .. step::
    :class: center
-   :data-x: 3500
-   :data-y: -1000
+   :data-x: 1300
+   :data-y: 0
    :data-scale: 4
 
 Back to `Positionning <index.html#/positioning>`_
@@ -17,7 +17,7 @@ This
 =====
 
 .. slide::
-   :data-x: 0
+   :data-x: -1000
    :data-y: 0
 
 Is
@@ -26,7 +26,7 @@ Is
 The
 ===
 
-"linear"
+"square"
 ========
 
 Positionning
@@ -35,3 +35,14 @@ Positionning
 Function
 ========
 
+It draw
+=======
+
+Rows
+=======
+
+With 4 slides
+==============
+
+Per row
+=======

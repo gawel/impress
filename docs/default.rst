@@ -7,9 +7,9 @@ Default positioning demo
 
 .. step::
    :class: center
-   :data-x: 2000
-   :data-y: 1500
-   :data-scale: 5
+   :data-x: 2900
+   :data-y: 1700
+   :data-scale: 4
 
 Back to `Positionning <index.html#/positioning>`_
 
@@ -17,28 +17,20 @@ This
 =====
 
 .. slide::
+   :data-x: 0
+   :data-y: 0
 
 Is
 ==
 
-.. slide::
-
 The
 ===
-
-.. slide::
 
 "default"
 =========
 
-.. slide::
-
 Positionning
 =============
 
-.. slide::
-
 Function
 ========
-
-.. slide::

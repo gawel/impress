@@ -1,3 +1,7 @@
 .black {color: black;}
 .toctree-wrapper {display:none;}
 .dense pre {line-height: 0.9em;}
+
+.slide.transparent, .step.transparent {opacity:0; display:none;}
+.slide.active, .step.active,
+.slide.past, .step.active {opacity:0.3; display:block;}

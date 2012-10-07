@@ -133,6 +133,63 @@ def resolve_func(name):
         return getattr(mod, func)
 
 
+class SlideCoord(object):
+
+    def __init__(self, i, section):
+        self.section = section
+        self.attributes = section.attributes
+        self.index = i
+
+    @property
+    def id(self):
+        ids = self.section.attributes['dupnames']
+        if ids:
+            return ids[0]
+        return self.section.attributes['ids'][0]
+
+    def update(self, *others, **kwargs):
+        attributes = {}
+        for other in others:
+            attributes.update(other.section.attributes)
+        attributes.update(kwargs)
+        for k, v in attributes.items():
+            if k.startswith('data-') or k in ('func',):
+                if k not in self.section.attributes:
+                    if k not in ('data-scale',):
+                        self.section.attributes[k] = v
+
+    def __getattr__(self, attr):
+        if attr in ('index', 'section'):
+            getattr(self, attr)
+        else:
+            attr = attr.replace('_', '-')
+            if not attr.startswith('data-'):
+                attr = 'data-%s' % attr
+            if attr not in self.section.attributes:
+                if attr == 'data-scale':
+                    self.section.attributes[attr] = 1
+                else:
+                    self.section.attributes[attr] = 0
+            value = self.section.attributes[attr]
+            if isinstance(value, unicode):
+                value = float(value)
+            return value
+
+    def __setattr__(self, attr, value):
+        if attr in ('index', 'section', 'attributes'):
+            object.__setattr__(self, attr, value)
+        else:
+            attr = attr.replace('_', '-')
+            if not attr.startswith('data-'):
+                attr = 'data-%s' % attr
+            self.section.attributes[attr] = value
+
+    def __repr__(self):
+        coord = [(k, v) for k, v in self.attributes.items()
+                                            if k.startswith('data-')]
+        return '<SlideCoord %i %s %s>' % (self.index, self.id, sorted(coord))
+
+
 def slides_position(app, doctree, docname):
     slides = [s for s in doctree.children if s.tagname == 'section']
     for slide in slides:
@@ -141,17 +198,19 @@ def slides_position(app, doctree, docname):
     doctree.children = [s for s in doctree.children if s.tagname != 'section']
     doctree.children.extend(slides)
     slides = [s for s in doctree.children if s.tagname == 'section']
-    coord = funcs.defaults.copy()
-    for i, slide in enumerate(slides):
+    for slide in slides:
+        if 'step' not in slide.attributes['classes']:
+            slide.attributes['classes'].extend(['step', 'slide'])
+    slides = [SlideCoord(i, s) for i, s in enumerate(slides)]
+    previous = None
+    for i, coord in enumerate(slides):
+        slide = coord.section
+        if previous:
+            coord.update(previous)
         func = resolve_func(slide.attributes.get('func', 'default'))
-        coord = func(slide, i, coord.copy(), slides)
-        for k, v in coord.items():
-            if k in ('x', 'y', 'z',
-                     'rotate_x', 'rotate_y', 'rotate_z',
-                     'scale'):
-                k = 'data-%s' % k.replace('_', '-')
-                if k not in slide.attributes:
-                    slide.attributes[k] = [str(v)]
+        if func(coord, slides) is True:
+            break
+        previous = coord
 
 
 def setup(app):

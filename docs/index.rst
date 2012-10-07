@@ -1,4 +1,5 @@
 .. impress::
+   :func: mymodule.documentation
 
 ===================================
 impress's documentation!
@@ -26,8 +27,6 @@ http://github.com/impress/
 
 Installation
 ============
-
-.. slide::
 
 Install the stable version::
 
@@ -59,8 +58,6 @@ Read the `source <_sources/index.txt>`_ of this page to see more examples.
 Inserting python code
 =====================
 
-.. slide::
-
 With Sphinx's autodoc plugin:
 
 .. autoclass:: impress.directives.Slide
@@ -73,13 +70,8 @@ Or by inserting some code:
         alert('bar');
     }
 
-.. impress::
-   :func: spiral
-
 You can insert Images
 =====================
-
-.. slide::
 
 It's recommended to add images in a ``static`` folder but urls works too.
 
@@ -94,7 +86,7 @@ Hidden title
 .. step::
    :hide-title: true
    :class: black center
-   :data-scale: 5
+   :data-scale: 3
 
 You may also want to hide title (required to create a step). And have fun with
 css3 and others ``impress.js`` attributes.
@@ -138,6 +130,7 @@ Avalaible functions are stored in :mod:`impress.funcs`:
 
 .. autofunction:: impress.funcs.default
 .. autofunction:: impress.funcs.linear
+.. autofunction:: impress.funcs.square
 .. autofunction:: impress.funcs.spiral
 
 
@@ -152,14 +145,20 @@ canvas but you can use your own.
 You just need to create a function like this:
 
 .. literalinclude:: mymodule.py
+   :pyobject: awesome_positioning
 
 And use it in the ``func`` attribute of the ``impress``, ``step`` or ``slide``
 directives.
+
+See also the function used for those slides:
+
+.. autofunction:: mymodule.documentation
 
 Overriding the defaults
 ===============================
 
 .. slide::
+   :class: transparent
 
 There is two way:
 
@@ -170,24 +169,18 @@ There is two way:
   template which is very simple and can be override to fit your needs.  Just copy
   it in a ``templates`` folder.
 
-.. impress::
-   :hide-title: true
-
 Contributing
 ============
 
-.. slide::
-   :func: mymodule.awesome_positioning
+.. step::
+   :hide-title: false
+   :class: center transparent
+   :data-y: 800
+   :data-x: 3000
+   :data-scale: 4
 
 This is a social project hosted on `github
 <https://github.com/gawel/impress/>`_.
 
 If you want to contribute, feel free to fork!
 
-EOS
-===
-
-.. step::
-   :data-scale: 6
-   :data-x: 1300
-   :data-y: -1200

@@ -18,29 +18,17 @@ Back to `Positionning <index.html#/positioning>`_
 This
 =====
 
-.. slide::
-
 Is
 ==
-
-.. slide::
 
 The
 ===
 
-.. slide::
-
 "spiral"
 ========
-
-.. slide::
 
 Positionning
 =============
 
-.. slide::
-
 Function
 ========
-
-.. slide::
