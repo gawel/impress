@@ -1,8 +1,7 @@
 .. impress::
    :func: spiral
 
-.. _spiral:
-
+========================
 Spiral positionning demo
 ========================
 

@@ -1,5 +1,6 @@
 .. impress::
 
+===================================
 impress's documentation!
 ===================================
 
@@ -13,6 +14,15 @@ based on `Sphinx <http://sphinx.pocoo.org/>`_ and `impress.js
 Use space/left/right keys to navigate.
 
 http://github.com/impress/
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   sample
+   default
+   linear
+   spiral
 
 Installation
 ============
@@ -31,6 +41,7 @@ Quick start
 ===========
 
 .. slide::
+   :class: dense
 
 Write a ``index.rst`` file like this:
 
@@ -178,5 +189,5 @@ EOS
 
 .. step::
    :data-scale: 6
-   :data-x: 900
-   :data-y: 200
+   :data-x: 1300
+   :data-y: -1200

@@ -1,3 +1,7 @@
+.. impress::
+   :func:default
+
+========================
 Default positioning demo
 ========================
 

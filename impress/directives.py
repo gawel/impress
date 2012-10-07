@@ -84,14 +84,6 @@ class Step(rst.Directive):
                    'data-rotate-z': directives.unchanged,
                    }
 
-    def resolve_func(self, name):
-        if hasattr(funcs, name):
-            return getattr(funcs, name)
-        else:
-            mod, func = name.split('.')
-            mod = __import__(mod, globals(), locals(), [''])
-            return getattr(mod, func)
-
     def run(self):
         if 'reset' in os.environ:
             del os.environ['reset']
@@ -99,6 +91,7 @@ class Step(rst.Directive):
             Step.last_coord = {}
 
         parent = self.state.parent
+
         source = parent.document.attributes['source']
         global_options = Impress.opts.setdefault(source, {})
         for k, v in global_options.items():
@@ -114,20 +107,6 @@ class Step(rst.Directive):
             if self.options.get('hide-title', 'false') == 'true':
                 title = parent.next_node()
                 title.attributes['classes'].insert(0, 'hidden')
-            if 'data-x' not in self.options:
-                func = self.resolve_func(self.options.get('func', 'default'))
-                amount = Step.amounts.setdefault(source, 0)
-                last_coord = Step.last_coord.setdefault(source, {})
-                new_attrs = func(self, amount, last_coord)
-                for k, v in new_attrs.items():
-                    last_coord[k] = v
-                    if k in ('x', 'y', 'z',
-                             'rotate_x', 'rotate_y', 'rotate_z',
-                             'scale'):
-                        k = 'data-%s' % k.replace('_', '-')
-                        if k not in self.options:
-                            attrs[k] = [str(v)]
-                Step.amounts[source] += 1
         else:
             print('%s:: WARNING: %s found out of section are ignored' % (
                              source, self.__class__.__name__.lower()))
@@ -145,9 +124,40 @@ class Slide(Step):
         return super(Slide, self).run()
 
 
+def resolve_func(name):
+    if hasattr(funcs, name):
+        return getattr(funcs, name)
+    else:
+        mod, func = name.split('.')
+        mod = __import__(mod, globals(), locals(), [''])
+        return getattr(mod, func)
+
+
+def slides_position(app, doctree, docname):
+    slides = [s for s in doctree.children if s.tagname == 'section']
+    for slide in slides:
+        slides.extend([s for s in slide.children if s.tagname == 'section'])
+        slide.children = [s for s in slide.children if s.tagname != 'section']
+    doctree.children = [s for s in doctree.children if s.tagname != 'section']
+    doctree.children.extend(slides)
+    slides = [s for s in doctree.children if s.tagname == 'section']
+    coord = funcs.defaults.copy()
+    for i, slide in enumerate(slides):
+        func = resolve_func(slide.attributes.get('func', 'default'))
+        coord = func(slide, i, coord.copy(), slides)
+        for k, v in coord.items():
+            if k in ('x', 'y', 'z',
+                     'rotate_x', 'rotate_y', 'rotate_z',
+                     'scale'):
+                k = 'data-%s' % k.replace('_', '-')
+                if k not in slide.attributes:
+                    slide.attributes[k] = [str(v)]
+
+
 def setup(app):
     app.add_directive('impress', Impress)
     app.add_directive('step', Step)
     app.add_directive('slide', Slide)
     app.connect('html-page-context', change_pathto)
+    app.connect('doctree-resolved', slides_position)
     app.connect('build-finished', move_private_folders)

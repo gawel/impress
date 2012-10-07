@@ -1,6 +1,7 @@
 .. impress::
    :func: linear
 
+=======================
 Linear positioning demo
 =======================
 

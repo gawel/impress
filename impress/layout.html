@@ -12,11 +12,7 @@
   </head>
   <body>
     <div id="impress">
-    {%- block content %}
-      {%- block document %}
-        {% block body %} {% endblock %}
-      {%- endblock %}
-    {%- endblock %}
+      {% block body %} {% endblock %}
     </div>
     <script src="{{ pathto('_static/impress/js/impress.js', 1) }}"></script>
     <script src="{{ pathto('_static/jquery.js', 1) }}"></script>
