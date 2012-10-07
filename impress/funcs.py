@@ -5,6 +5,7 @@ defaults = dict(x=0, y=0, rotate_x=0, rotate_y=0, rotate_z=0, scale=1)
 
 
 def default(directive, i, coord):
+    """:doc:`default`"""
     if coord:
         coord['x'] += 1000
         coord['y'] += 500
@@ -15,6 +16,7 @@ def default(directive, i, coord):
 
 
 def linear(directive, i, coord):
+    """:doc:`linear`"""
     if coord:
         coord['x'] += 1000
     else:
@@ -23,6 +25,7 @@ def linear(directive, i, coord):
 
 
 def spiral(directive, i, coord):
+    """:doc:`spiral`"""
     if coord:
         r = 1200
         if coord['x'] > 0:
