@@ -14,7 +14,9 @@ based on `Sphinx <http://sphinx.pocoo.org/>`_ and `impress.js
 
 Use space/left/right keys to navigate.
 
-http://github.com/impress/
+http://github.com/gawel/impress/
+
+By `@gawel_ <http://twitter.com/gawel_>`_
 
 .. toctree::
    :maxdepth: 1
