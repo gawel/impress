@@ -16,6 +16,8 @@ Use space/left/right keys to navigate.
 
 http://github.com/gawel/impress/
 
+By `@gawel_ <http://twitter.com/gawel_>`_
+
 .. toctree::
    :maxdepth: 1
    :titlesonly:
