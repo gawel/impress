@@ -7,8 +7,8 @@ Square positioning demo
 
 .. step::
    :class: center
-   :data-x: 1300
-   :data-y: -400
+   :data-x: 600
+   :data-y: -800
    :data-scale: 5
 
 Back to `Positionning <index.html#/positioning>`_
@@ -46,3 +46,6 @@ With 4 slides
 
 Per row
 =======
+
+.
+==

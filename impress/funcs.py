@@ -30,8 +30,7 @@ class Slide(object):
 
     def __getattr__(self, attr):
         attr = attr.replace('_', '-')
-        if not attr.startswith('data-'):
-            attr = 'data-%s' % attr
+        attr = 'data-%s' % attr
         default = attr == 'data-scale' and 1 or 0
         value = self.attributes.setdefault(attr, default)
         if isinstance(value, unicode):
@@ -43,17 +42,16 @@ class Slide(object):
             object.__setattr__(self, attr, value)
         else:
             attr = attr.replace('_', '-')
-            if not attr.startswith('data-'):
-                attr = 'data-%s' % attr
+            attr = 'data-%s' % attr
             self.section.attributes[attr] = value
 
     def __repr__(self):
-        coord = ['%s: %s' % (k, v) for k, v in self.attributes.items()
-                                            if k.startswith('data-')]
+        coord = ['%s: %s' % (k[5:], v) for k, v in self.attributes.items()
+                                                  if k.startswith('data-')]
         coord = ', '.join(sorted(coord))
         classes = '.'.join(self.attributes.get('classes'))
-        return '<slide#%s.%s (%i) %s>' % (self.id, classes,
-                                          self.index, coord)
+        return '<slide#%s.%s (%i) {%s}>' % (self.id, classes,
+                                            self.index, coord)
 
 
 def default(slide, slides):
@@ -72,7 +70,7 @@ def linear(slide, slides):
 
 def square(slide, slides, amount=4):
     """:doc:`square`"""
-    if slide.index % amount == amount - 1:
+    if not slide.index % amount and slide.index:
         slide.x = 0
         slide.y += 800
     else:
@@ -81,14 +79,14 @@ def square(slide, slides, amount=4):
 
 def square2(slide, slides, amount=4):
     """:doc:`square2`"""
-    if slide.index == 0:
-        slide.cx = 1000
-    if slide.index % amount == amount - 1:
-        slide.cx = -slide.cx
+    if slide.index == 0 or slide.incr_x == 0:
+        slide.incr_x = 1000
+    if not slide.index % amount and slide.index:
+        slide.incr_x = -slide.incr_x
         slide.rotate_z = slide.rotate_z == 0 and 180 or 0
         slide.y += 800
     else:
-        slide.x += slide.cx
+        slide.x += slide.incr_x
 
 
 def spiral(slide, slides, r=1200):
