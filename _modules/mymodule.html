@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>mymodule</title>
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="../static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../static/impress.css" type="text/css" />
+    <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  </head>
+  <body>
+    <div id="impress">
+      
+  <h1>Source code for mymodule</h1><div class="highlight"><pre>
+<span class="k">def</span> <span class="nf">awesome_positioning</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">1000</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_y</span> <span class="o">+=</span> <span class="mi">45</span>
+
+
+<div class="viewcode-block" id="documentation"><a class="viewcode-back" href="../index.html#mymodule.documentation">[docs]</a><span class="k">def</span> <span class="nf">documentation</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span><span class="p">:</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">incr_rotate_z</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">slide</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">800</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
+    <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s">&#39;hidden-title&#39;</span><span class="p">:</span>
+        <span class="n">nslide</span> <span class="o">=</span> <span class="n">slides</span><span class="p">[</span><span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">nslide</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">slides</span><span class="p">[</span><span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">nslide</span><span class="o">.</span><span class="n">incr_rotate_z</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1700</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_z</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s">&#39;overriding-the-defaults&#39;</span><span class="p">:</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_x</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">800</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_z</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_rotate_z</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span></div>
+</pre></div>
+
+    </div>
+    <script src="../static/impress/js/impress.js"></script>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/impress.js"></script>
+    <script src="../static/custom.js"></script>
+    <script>
+      if (! /_modules/.exec(window.location.href)) {
+        impress().init();
+      }
+    </script>
+  </body>
+</html>

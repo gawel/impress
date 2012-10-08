@@ -1,15 +1,15 @@
 .. impress::
-   :func:default
+   :func: square2
 
 ========================
-Default positioning demo
+Square2 positioning demo
 ========================
 
 .. step::
    :class: center
-   :data-x: 2900
-   :data-y: 1700
-   :data-scale: 4
+   :data-x: -1400
+   :data-y: -300
+   :data-scale: 5
 
 Back to `Positionning <index.html#/positioning>`_
 
@@ -26,7 +26,7 @@ Is
 The
 ===
 
-"default"
+"square2"
 =========
 
 Positionning
@@ -34,3 +34,18 @@ Positionning
 
 Function
 ========
+
+It draw
+=======
+
+Rows
+=======
+
+With 4 slides
+==============
+
+Per row
+=======
+
+.
+==
