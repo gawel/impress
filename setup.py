@@ -22,6 +22,7 @@ setup(name='impress',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
+          'Sphinx',
       ],
       entry_points="""
       # -*- Entry points: -*-
