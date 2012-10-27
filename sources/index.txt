@@ -100,8 +100,6 @@ But before that you may want to read a few technicals notes
 Impress directive
 ==================
 
-.. slide::
-
 This directive allow to set some "global" options used for all slide found
 after it.
 
@@ -110,8 +108,6 @@ after it.
 
 Step / Slide directive
 =======================
-
-.. slide::
 
 Per slide configuration. One of the step/slide directive **must** be added
 after a section title to create a slide.
@@ -124,8 +120,6 @@ automaticaly.
 
 Positioning
 ===========
-
-.. slide::
 
 Positioning can be done manualy with the ``data-*`` attributes but you can use
 the ``func`` attribute to auto positioning slides on the canvas.
@@ -140,8 +134,6 @@ Avalaible functions are stored in :mod:`impress.funcs`:
 
 Use your own algorithm
 ======================
-
-.. slide::
 
 This tools came with a set of function designed to position slides in the
 canvas but you can use your own.
