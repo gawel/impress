@@ -9,7 +9,7 @@ def starttag(self, node, tagname, suffix='\n', empty=False, **attributes):
     attributes.update(dict([(k, v) for k, v in attrs
                                         if k.startswith('data-')]))
     result = _old_starttag(self, node, tagname,
-                         suffix='\n', empty=False, **attributes)
+                         suffix=suffix, empty=empty, **attributes)
     return result
 
 HTMLTranslator.starttag = starttag
