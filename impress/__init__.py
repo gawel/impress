@@ -32,6 +32,9 @@ def build_pages(git=False):
         origin = sh('git remote -v | grep origin | head -n 1')
         origin = origin.split()[1]
         sh('git clone %s pages; cd pages; git co gh-pages' % origin)
+        sh(('git fetch origin;'
+            'git branch -a | grep origin/gh-pages ||'
+            '(cd pages && git branch gh-pages)'))
     sh(('mkdir -p pages; cd pages;'
         '%s -i ../index.rst -o .;'
         "sed 's/_images/static/g' -i index.html"
