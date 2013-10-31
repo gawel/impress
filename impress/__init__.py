@@ -1,48 +1,29 @@
 from optparse import OptionParser
-import subprocess
+from impress import ghp
+import subprocess as sp
+import tempfile
 import sphinx
 import sys
 import os
 
-SCRIPT = """
-#!/bin/sh
-git clone git@github.com:bearstech/pyconfr.git pages
-rm -Rf pages
-mkdir pages
-cd pages
-#git checkout gh-pages
-rm -f index.html
-../bin/impress -i ../index.rst -o .
-sed 's/_images/static/g' -i index.html
-git add -A
-git commit -m "update docs"
-git push origin gh-pages
-cd ..
-rm -Rf pages
-"""
-
-
-def sh(cmd):
-    return subprocess.check_output(cmd, shell=True)
-
 
 def build_pages(git=False):
-    sh('rm -Rf pages')
+    d = tempfile.mkdtemp(prefix='impress-')
+    print('Building doc in %s...' % d)
+    cmd = (
+        'rm -Rf %(d)s; mkdir -p %(d)s;'
+        '%(b)s -i $(find . -name index.rst) -o %(d)s;'
+        "find %(d)s -name '*html' -exec sed 's/_images/static/g' -i {} \\;"
+    ) % dict(d=d, b=os.path.abspath(sys.argv[0]))
+    print(cmd)
+    sp.check_call(cmd, shell=True)
     if git:
-        origin = sh('git remote -v | grep origin | head -n 1')
-        origin = origin.split()[1]
-        sh('git clone %s pages; cd pages; git co gh-pages' % origin)
-        sh(('git fetch origin;'
-            'git branch -a | grep origin/gh-pages ||'
-            '(cd pages && git branch gh-pages)'))
-    sh(('mkdir -p pages; cd pages;'
-        '%s -i ../index.rst -o .;'
-        "sed 's/_images/static/g' -i index.html"
-        ) % os.path.abspath(sys.argv[0]))
-    if git:
-        sh(('cd pages; git add -A;'
-            'git commit -m "update docs";'
-            'git push origin gh-pages'))
+        if not ghp.try_rebase('origin', 'gh-pages'):
+            print("Failed to rebase gh-pages branch.")
+            return
+        ghp.run_import('html', 'gh-pages', 'Update documentation',
+                       nojekyll=False)
+        sp.check_call(['git', 'push', 'origin', 'gh-pages'])
 
 
 def main():
@@ -62,7 +43,7 @@ def main():
                       help="Build slides in pages/")
     parser.add_option('-g', '--github', action="store_true",
                       dest='build_gh', default=False,
-                      help="Build slides in pages/ and push to gh-pages")
+                      help="Build slides and push the result to gh-pages")
     options, args = parser.parse_args()
 
     if options.build:
