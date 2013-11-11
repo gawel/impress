@@ -2,7 +2,7 @@
 import os
 import glob
 import shutil
-from impress import monkeys # NOQA
+from impress import monkeys  # NOQA
 from impress import funcs
 from docutils.parsers import rst
 from docutils.parsers.rst import directives
@@ -19,11 +19,11 @@ class Impress(rst.Directive):
     final_argument_whitespace = True
     has_content = False
     option_spec = {
-                   'func': directives.unchanged,
-                   'class': directives.class_option,
-                   'hide-title': hide_title,
-                   'data-scale': directives.nonnegative_int,
-                  }
+        'func': directives.unchanged,
+        'class': directives.class_option,
+        'hide-title': hide_title,
+        'data-scale': directives.nonnegative_int,
+    }
 
     opts = {}
 
@@ -45,18 +45,18 @@ class Step(rst.Directive):
     final_argument_whitespace = True
     has_content = False
     option_spec = {
-                   'func': directives.unchanged,
-                   'class': directives.class_option,
-                   'hide-title': hide_title,
-                   'data-scale': directives.nonnegative_int,
-                   'data-x': directives.unchanged,
-                   'data-y': directives.unchanged,
-                   'data-z': directives.unchanged,
-                   'data-rotate': directives.unchanged,
-                   'data-rotate-x': directives.unchanged,
-                   'data-rotate-y': directives.unchanged,
-                   'data-rotate-z': directives.unchanged,
-                   }
+        'func': directives.unchanged,
+        'class': directives.class_option,
+        'hide-title': hide_title,
+        'data-scale': directives.nonnegative_int,
+        'data-x': directives.unchanged,
+        'data-y': directives.unchanged,
+        'data-z': directives.unchanged,
+        'data-rotate': directives.unchanged,
+        'data-rotate-x': directives.unchanged,
+        'data-rotate-y': directives.unchanged,
+        'data-rotate-z': directives.unchanged,
+    }
 
     def run(self):
         if 'reset' in os.environ:
@@ -83,7 +83,7 @@ class Step(rst.Directive):
                 title.attributes['classes'].insert(0, 'hidden')
         else:
             print('%s:: WARNING: %s found out of section are ignored' % (
-                             source, self.__class__.__name__.lower()))
+                  source, self.__class__.__name__.lower()))
         return []
 
 
