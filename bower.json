@@ -1,0 +1,15 @@
+{
+  "name": "impress",
+  "version": "0.1",
+  "homepage": "https://github.com/gawel/impress",
+  "authors": [
+    "Gael Pasgrimaud <gael@gawel.org>"
+  ],
+  "main": [
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+      "impress.js": "0.5.3"
+  }
+}

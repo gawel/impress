@@ -9,6 +9,7 @@ import os
 import subprocess as sp
 import sys
 import time
+import unicodedata
 
 __usage__ = "%prog [OPTIONS] DIRECTORY"
 
@@ -18,6 +19,11 @@ if sys.version_info[0] == 3:
         if isinstance(text, bytes):
             return text
         return text.encode()
+
+    def dec(text):
+        if isinstance(text, bytes):
+            return text.decode('utf-8')
+        return text
 
     def write(pipe, data):
         try:
@@ -31,8 +37,21 @@ else:
             return text.encode('utf-8')
         return text
 
+    def dec(text):
+        if isinstance(text, unicode):
+            return text
+        return text.decode('utf-8')
+
     def write(pipe, data):
         pipe.stdin.write(data)
+
+
+def normalize_path(path):
+    # Fix unicode pathnames on OS X
+    # See: http://stackoverflow.com/a/5582439/44289
+    if sys.platform == "darwin":
+        return unicodedata.normalize("NFKC", dec(path))
+    return path
 
 
 def check_repo(parser):
@@ -67,7 +86,7 @@ def get_config(key):
 
 
 def get_prev_commit(branch):
-    cmd = ['git', 'rev-list', '--max-count=1', branch]
+    cmd = ['git', 'rev-list', '--max-count=1', branch, '--']
     p = sp.Popen(cmd, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
     (rev, ignore) = p.communicate()
     if p.wait() != 0:
@@ -83,8 +102,8 @@ def mk_when(timestamp=None):
 
 
 def start_commit(pipe, branch, message):
-    uname = get_config("user.name")
-    email = get_config("user.email")
+    uname = dec(get_config("user.name"))
+    email = dec(get_config("user.email"))
     write(pipe, enc('commit refs/heads/%s\n' % branch))
     write(pipe, enc('committer %s <%s> %s\n' % (uname, email, mk_when())))
     write(pipe, enc('data %d\n%s\n' % (len(message), message)))
@@ -124,6 +143,7 @@ def run_import(srcdir, branch, message, nojekyll):
     for path, dnames, fnames in os.walk(srcdir):
         for fn in fnames:
             fpath = os.path.join(path, fn)
+            fpath = normalize_path(fpath)
             gpath = gitpath(os.path.relpath(fpath, start=srcdir))
             add_file(pipe, fpath, gpath)
     if nojekyll:

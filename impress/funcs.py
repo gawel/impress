@@ -34,7 +34,7 @@ class Slide(object):
         attr = 'data-%s' % attr
         default = attr == 'data-scale' and 1 or 0
         value = self.attributes.setdefault(attr, default)
-        if sys.version_info.major == 2:
+        if sys.version_info[0] == 2:
             str_type = unicode
         else:
             str_type = str
