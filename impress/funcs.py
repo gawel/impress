@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import math
+import sys
 
 
 class Slide(object):
@@ -33,7 +34,11 @@ class Slide(object):
         attr = 'data-%s' % attr
         default = attr == 'data-scale' and 1 or 0
         value = self.attributes.setdefault(attr, default)
-        if isinstance(value, unicode):
+        if sys.version_info.major == 2:
+            str_type = unicode
+        else:
+            str_type = str
+        if isinstance(value, str_type):
             value = float(value)
         return value
 
