@@ -4,6 +4,7 @@
 # the Tumbolia Public License. See the LICENSE file for more
 # information.
 
+import errno
 import optparse as op
 import os
 import subprocess as sp
@@ -114,8 +115,11 @@ def start_commit(pipe, branch, message):
 
 
 def add_file(pipe, srcpath, tgtpath):
-    write(pipe, enc('M 100644 inline %s\n' % tgtpath))
     with open(srcpath, "rb") as handle:
+        if os.access(srcpath, os.X_OK):
+            write(pipe, enc('M 100755 inline %s\n' % tgtpath))
+        else:
+            write(pipe, enc('M 100644 inline %s\n' % tgtpath))
         data = handle.read()
         write(pipe, enc('data %d\n' % len(data)))
         write(pipe, enc(data))

@@ -21,7 +21,7 @@ def build_pages(git=False):
         if not ghp.try_rebase('origin', 'gh-pages'):
             print("Failed to rebase gh-pages branch.")
             return
-        ghp.run_import('html', 'gh-pages', 'Update documentation',
+        ghp.run_import(d, 'gh-pages', 'Update documentation',
                        nojekyll=False)
         sp.check_call(['git', 'push', 'origin', 'gh-pages'])
 
