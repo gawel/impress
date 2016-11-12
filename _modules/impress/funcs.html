@@ -14,7 +14,7 @@
     <div id="impress">
       
   <h1>Source code for impress.funcs</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -29,10 +29,10 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&#39;dupnames&#39;</span><span class="p">]</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;dupnames&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">ids</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&#39;ids&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;ids&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">others</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">attributes</span> <span class="o">=</span> <span class="p">{}</span>
@@ -40,18 +40,18 @@
             <span class="n">attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
         <span class="n">attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;data-&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;func&#39;</span><span class="p">,):</span>
+            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;data-&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;func&#39;</span><span class="p">,):</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;data-scale&#39;</span><span class="p">,):</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;data-scale&#39;</span><span class="p">,):</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-        <span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
-        <span class="n">attr</span> <span class="o">=</span> <span class="s">&#39;data-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">attr</span>
-        <span class="n">default</span> <span class="o">=</span> <span class="n">attr</span> <span class="o">==</span> <span class="s">&#39;data-scale&#39;</span> <span class="ow">and</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">0</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s1">&#39;data-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">attr</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;data-scale&#39;</span> <span class="ow">and</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">0</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">str_type</span> <span class="o">=</span> <span class="nb">unicode</span>
+            <span class="n">str_type</span> <span class="o">=</span> <span class="n">unicode</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">str_type</span> <span class="o">=</span> <span class="nb">str</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">str_type</span><span class="p">):</span>
@@ -59,19 +59,19 @@
         <span class="k">return</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">,</span> <span class="s">&#39;section&#39;</span><span class="p">,</span> <span class="s">&#39;attributes&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;section&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">):</span>
             <span class="nb">object</span><span class="o">.</span><span class="n">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
-            <span class="n">attr</span> <span class="o">=</span> <span class="s">&#39;data-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">attr</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="s1">&#39;data-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">attr</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">5</span><span class="p">:],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                                                  <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;data-&#39;</span><span class="p">)]</span>
-        <span class="n">coord</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">coord</span><span class="p">))</span>
-        <span class="n">classes</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;classes&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;slide#</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s"> (</span><span class="si">%i</span><span class="s">) {</span><span class="si">%s</span><span class="s">}&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">5</span><span class="p">:],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                                  <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;data-&#39;</span><span class="p">)]</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">coord</span><span class="p">))</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;slide#</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1"> (</span><span class="si">%i</span><span class="s1">) {</span><span class="si">%s</span><span class="s1">}&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span>
                                             <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span>
 
 
@@ -80,24 +80,24 @@
     <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">500</span>
-        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_x</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">rotate_x</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">/</span> <span class="mf">180.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="linear"><a class="viewcode-back" href="../../index.html#impress.funcs.linear">[docs]</a><span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;:doc:`linear`&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span></div>
 
-</div>
+
 <div class="viewcode-block" id="square"><a class="viewcode-back" href="../../index.html#impress.funcs.square">[docs]</a><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;:doc:`square`&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="n">amount</span> <span class="ow">and</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">800</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span>
+        <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span></div>
 
-</div>
+
 <span class="k">def</span> <span class="nf">square2</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;:doc:`square2`&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -123,7 +123,7 @@
 </pre></div>
 
     </div>
-    <script src="../../static/components/impress.js/js/impress.js"></script>
+    <script src="../../static/impressjs/js/impress.js"></script>
     <script src="../../static/jquery.js"></script>
     <script src="../../static/impress.js"></script>
     <script src="../../static/custom.js"></script>

@@ -14,7 +14,7 @@
     <div id="impress">
       
   <h1>Source code for mymodule</h1><div class="highlight"><pre>
-<span class="k">def</span> <span class="nf">awesome_positioning</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">):</span>
+<span></span><span class="k">def</span> <span class="nf">awesome_positioning</span><span class="p">(</span><span class="n">slide</span><span class="p">,</span> <span class="n">slides</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1000</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">1000</span>
@@ -31,13 +31,13 @@
         <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">800</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
-    <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s">&#39;hidden-title&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s1">&#39;hidden-title&#39;</span><span class="p">:</span>
         <span class="n">nslide</span> <span class="o">=</span> <span class="n">slides</span><span class="p">[</span><span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">nslide</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">slides</span><span class="p">[</span><span class="n">slide</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
         <span class="n">nslide</span><span class="o">.</span><span class="n">incr_rotate_z</span> <span class="o">=</span> <span class="mi">180</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1700</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">rotate_z</span> <span class="o">=</span> <span class="mi">90</span>
-    <span class="k">elif</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s">&#39;overriding-the-defaults&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">slide</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s1">&#39;overriding-the-defaults&#39;</span><span class="p">:</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">rotate_x</span> <span class="o">=</span> <span class="mi">180</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">800</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">slide</span><span class="o">.</span><span class="n">incr_x</span>
@@ -48,7 +48,7 @@
 </pre></div>
 
     </div>
-    <script src="../static/components/impress.js/js/impress.js"></script>
+    <script src="../static/impressjs/js/impress.js"></script>
     <script src="../static/jquery.js"></script>
     <script src="../static/impress.js"></script>
     <script src="../static/custom.js"></script>
