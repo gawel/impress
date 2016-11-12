@@ -2,6 +2,9 @@ graft impress
 graft docs
 prune docs/_build
 prune html
-include *.rst *.cfg *.ini
+include *.sh *.rst *.cfg *.ini *.py
+exclude .installed.cfg
+exclude .gitmodules
+exclude impress/static/impressjs/.git
 global-exclude *.pyc
 global-exclude __pycache__

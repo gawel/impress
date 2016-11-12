@@ -1,3 +1,4 @@
 docs/html
 html
+.installed.cfg
 .tox
